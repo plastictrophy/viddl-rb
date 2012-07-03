@@ -7,6 +7,7 @@ require "mechanize"
 require "cgi"
 require "open-uri"
 require "open3"
+require "stringio"
 require "download-helper.rb"
 require "plugin-helper.rb"
 
@@ -25,8 +26,9 @@ module ViddlRb
 
     if plugin 
       begin
-        #we'll end up with an array of hashes with they keys :url and :name 
-        download_queue = plugin.get_urls_and_filenames(url)
+        #we'll end up with an array of hashes with they keys :url and :name
+        #surpress_stdout makes sure that plugins don't print to $stdout
+        download_queue = suppress_stdout { plugin.get_urls_and_filenames(url) }
       rescue StandardError => e
         message = "Error while running the #{plugin.name.inspect} plugin. Maybe it has to be updated? Error: #{e.message}."
         raise PluginError, message
@@ -36,4 +38,19 @@ module ViddlRb
       nil
     end
   end
+
+  #redircts $stdout calls (for example puts) for the given block
+  #to a temporary StringIO object.
+  def self.suppress_stdout
+    std = $stdout
+    $stdout = StringIO.new
+    begin
+      return_value = yield
+    ensure
+      $stdout = std
+      return_value
+    end
+  end
+  private_class_method :suppress_stdout
+
 end
