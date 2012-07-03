@@ -37,13 +37,14 @@ __Library Usage:__
 ```ruby
 require 'viddl-rb'
 
-download_url = ViddlRb.get_urls("http://www.youtube.com/watch?v=QH2-TGUlwu4")
-download_url.first # => ""http://o-o.preferred.arn06s04.v3.lscac ..."
+download_urls = ViddlRb.get_urls("http://www.youtube.com/watch?v=QH2-TGUlwu4")
+download_urls.first # => ""http://o-o.preferred.arn06s04.v3.lscac ..."
 ```
 
 The ViddlRb module has the following module methods:
 
 __get_urls(url)__
+
 Returns an array of download urls for the specified video url.
 Returns nil if the url is not recognized by any plugins.
 Throws ViddlRb::PluginError if the plugin fails to download the video.
