@@ -15,19 +15,23 @@ Dir[File.join(File.dirname(__FILE__),"../plugins/*.rb")].each { |p| load p }
 
 module ViddlRb
 
-  def self.get_urls(url)
+  class PluginError < StandardError; end
 
-    PluginBase.registered_plugins.each do |plugin|
-      if plugin.matches_provider?(url)
-        begin
-          #we'll end up with an array of hashes with they keys :url and :name 
-          download_queue = plugin.get_urls_and_filenames(url)
-        rescue StandardError => e
-          puts "Error while running the #{plugin.name.inspect} plugin. Maybe it has to be updated? Error: #{e.message}."  
-          return nil
-        end
-        return download_queue.map { |url_name| url_name[:url] }
+  #returns an array of download urls for the specified video url
+  def self.get_urls(url)
+    plugin = PluginBase.registered_plugins.find { |p| p.matches_provider?(url) }
+
+    if plugin 
+      begin
+        #we'll end up with an array of hashes with they keys :url and :name 
+        download_queue = plugin.get_urls_and_filenames(url)
+      rescue StandardError => e
+        message = "Error while running the #{plugin.name.inspect} plugin. Maybe it has to be updated? Error: #{e.message}."
+        raise PluginError, message
       end
+      download_queue.map { |url_name| url_name[:url] }
+    else
+      nil
     end
   end
 end
