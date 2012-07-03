@@ -46,7 +46,7 @@ The ViddlRb module has the following module methods:
 * __get_urls(url)__
 -- Returns an array of download urls for the specified video url.
 Returns nil if the url is not recognized by any plugins.
-Throws ViddlRb::PluginError if the plugin fails to download the video.
+Throws ViddlRb::PluginError if the plugin fails to extract the download url.
 
 __Requirements:__
 
