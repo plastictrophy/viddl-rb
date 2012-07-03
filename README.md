@@ -32,6 +32,22 @@ Filter videos to download from a user/playlist:
 The --filter argument accepts a regular expression and will only download videos where the title matches the regex.
 The /i option does a case-insensitive search.
 
+__Library Usage:__
+
+```ruby
+require 'viddl-rb'
+
+download_url = ViddlRb.get_urls("http://www.youtube.com/watch?v=QH2-TGUlwu4")
+download_url.first # => ""http://o-o.preferred.arn06s04.v3.lscac ..."
+```
+
+The ViddlRb module has the following module methods:
+
+__get_urls(url)__
+Returns an array of download urls for the specified video url.
+Returns nil if the url is not recognized by any plugins.
+Throws ViddlRb::PluginError if the plugin fails to download the video.
+
 __Requirements:__
 
 * curl/wget or the [progress bar](http://github.com/nex3/ruby-progressbar/) gem  
