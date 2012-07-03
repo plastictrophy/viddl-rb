@@ -18,6 +18,8 @@ module ViddlRb
   class PluginError < StandardError; end
 
   #returns an array of download urls for the specified video url
+  #if the url does not match any plugin, return nil and if a plugin
+  #throws an error, throw PluginError
   def self.get_urls(url)
     plugin = PluginBase.registered_plugins.find { |p| p.matches_provider?(url) }
 
