@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = "An extendable commandline video downloader for flash video sites. Includes plugins for vimeo, youtube and megavideo"
   s.has_rdoc = false
   s.files       = Dir["{bin,helper,plugins}/**/*"] + Dir["[A-Z]*"] + ["README.md"]
-  s.require_paths = ['.']
+  s.require_paths = ['lib']
   s.executables = ['viddl-rb']
   
   s.rubyforge_project = s.name
