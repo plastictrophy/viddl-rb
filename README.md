@@ -41,12 +41,34 @@ download_urls = ViddlRb.get_urls("http://www.youtube.com/watch?v=QH2-TGUlwu4")
 download_urls.first # => ""http://o-o.preferred.arn06s04.v3.lscac ..."
 ```
 
-The ViddlRb module has the following module methods:
+The ViddlRb module has the following module public methods:
+
+* __get_urls_and_filenames(url)__
+-- Returns an array of one or more hashes that has the keys :url which
+points to the download url and :name which points to the filename.
+Returns nil if the url is not recognized by any plugins.
+Throws ViddlRb::PluginError if the plugin fails to extract the download url.
 
 * __get_urls(url)__
 -- Returns an array of download urls for the specified video url.
 Returns nil if the url is not recognized by any plugins.
 Throws ViddlRb::PluginError if the plugin fails to extract the download url.
+
+* __get_filenames(url)__
+-- Returns an array of filenames for the specified video url.
+Returns nil if the url is not recognized by any plugins.
+Throws ViddlRb::PluginError if the plugin fails to extract the download url.
+
+* __io=(io_object)__
+-- By default all plugin output to stdout will be suppressed when the library is used.
+If you are interested in the output of a plugin, you can set an IO object that
+will receive all plugin output using this method. For example:
+
+```ruby
+require 'viddl-rb'
+
+ViddlRb.io = $stdout 	# plugins will now write their output to $stdout
+```
 
 __Requirements:__
 
