@@ -40,7 +40,7 @@ class PluginBase
   end
 
   def self.printf(string, *objects)
-    if string.is_a?(IO)
+    if string.is_a?(IO) || string.is_a?(StringIO)
       super(string, *objects)  # so we don't redirect the printf that prints to a separate IO object
     else
       PluginBase.io.printf(string, *objects)
