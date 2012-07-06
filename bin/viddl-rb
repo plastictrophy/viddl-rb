@@ -7,6 +7,7 @@ require "mechanize"
 require "cgi"
 require "open-uri"
 require "open3"
+require "stringio"
 require "download-helper.rb"
 require "plugin-helper.rb"
 
