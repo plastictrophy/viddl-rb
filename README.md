@@ -38,7 +38,7 @@ __Library Usage:__
 require 'viddl-rb'
 
 download_urls = ViddlRb.get_urls("http://www.youtube.com/watch?v=QH2-TGUlwu4")
-download_urls.first # => ""http://o-o.preferred.arn06s04.v3.lscac ..."
+download_urls.first 	# => "http://o-o.preferred.arn06s04.v3.lscac ..."
 ```
 
 The ViddlRb module has the following module public methods:
