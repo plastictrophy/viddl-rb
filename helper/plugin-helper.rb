@@ -21,6 +21,17 @@ module ViddlRb
       string.delete("\"'").gsub(/[^\d\w]/, '_')
     end
 
+    #takes an url and makes a get request to it (without reading the body) and the return the headers as a hash
+    def self.get_http_headers(url)
+      uri = URI(url)
+
+      Net::HTTP.start(uri.host, uri.port) do |http|
+        http.request_get(uri.request_uri) do |response|
+          return response.to_hash
+        end
+      end
+    end
+
     #the following methods redirects the Kernel printing methods (except #p) to the
     #PluginBase IO object. this is because sometimes we don't want plugins to
     #write to something else than $stdout
