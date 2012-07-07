@@ -14,6 +14,9 @@ module ViddlRb
   		info_doc = Nokogiri::XML(open(info_url))
 
   		download_url = get_download_url(info_doc)
+      headers = PluginBase.get_http_headers(download_url)
+      download_url = headers["location"].first if headers["location"]
+
   		file_name = get_file_name(info_doc, download_url)
 
   		[{:url => download_url, :name => file_name}]
@@ -31,7 +34,7 @@ module ViddlRb
   	#the file name string is a combination of the video name and the extension
   	def self.get_file_name(info_doc, download_url)
   		name = info_doc.xpath('//rsp/videoList/video').first.attributes['title'].content
-  		extension = download_url[/\/[\w\d]+(\.[\w\d]+)\?ct/, 1]
+  		extension = download_url[/\/[\w\d]+(\.[\w\d]+)\?/, 1]
   		PluginBase.make_filename_safe(name) + extension
   	end
 
