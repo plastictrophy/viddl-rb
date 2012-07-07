@@ -59,6 +59,11 @@ module ViddlRb
     urls_filenames.nil? ? nil : urls_filenames.map { |uf| uf[:name] }
   end
 
+  #saves a video using DownloadHelper. returns true if no errors occured or false otherwise.
+  def self.save_file(file_uri, file_name, path = Dir.getwd, amount_of_tries = 1)
+    DownloadHelper.save_file(file_uri, file_name, path, amount_of_retries)
+  end
+
   #<<< helper methods >>>
 
   #the default error message when a plugin fails to download a video.
