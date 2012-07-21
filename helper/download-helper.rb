@@ -3,7 +3,7 @@ module ViddlRb
 
     class RequirementsNotMet < StandardError; end
 
-    #viddl will attempt the first of these tools it finds on the system to download the video.
+    #viddl will use the first of these tools it finds on the system to download the video.
     #if the system does not have any of these tools, net/http is used instead.
     TOOLS_PRIORITY_LIST = [:wget, :curl] 
 
@@ -48,8 +48,7 @@ module ViddlRb
 
       Net::HTTP.start(uri.host, uri.port) do |http|
         http.request_get(uri.request_uri) do |res|
-          video_size = res.read_header["content-length"].to_i
-          
+          video_size = res.read_header["content-length"].to_i 
           bar = ProgressBar.new(file_name, video_size)
           bar.file_transfer_mode
           res.read_body do |segment|
@@ -58,15 +57,15 @@ module ViddlRb
           end
         end
       end
-      print "\n"
       file.close
+      print "\n"
 
       download_successful?(full_path, video_size)   #because Net::HTTP.start does not throw Net exceptions
     end
 
     def self.get_downloader
       tool = TOOLS_PRIORITY_LIST.find { |tool| os_has?(tool) }
-      #return tool if tool
+      return tool if tool
 
       #check to see if the progressbar gem is installed
       begin
