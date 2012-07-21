@@ -191,8 +191,8 @@ module ViddlRb
       #if download url ends with a ';' followed by a codec string remove that part because it stops URI.parse from working
       download_url = $1 if download_url =~ /(.*?);\scodecs=/
       
-      headers = PluginBase.get_http_headers(download_url)
-      download_url = headers["location"].first if headers["location"]
+      redirect = PluginBase.get_location_header(download_url)
+      download_url = redirect if redirect
 
       file_name = PluginBase.make_filename_safe(title) + "." + format_ext[selected_format][:extension]
       puts "downloading to " + file_name
