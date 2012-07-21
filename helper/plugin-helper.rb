@@ -32,6 +32,13 @@ module ViddlRb
       end
     end
 
+    #get the location header for an url or nil if there is none
+    def self.get_location_header(url)
+      headers = get_http_headers(url)
+      location = headers["location"]
+      location.nil? ? nil : location.first    #either an array containing the location or nil
+    end
+
     #the following methods redirects the Kernel printing methods (except #p) to the
     #PluginBase IO object. this is because sometimes we don't want plugins to
     #write to something else than $stdout
