@@ -35,7 +35,7 @@ module ViddlRb
     #get the location header for an url or nil if there is none
     def self.get_location_header(url)
       headers = get_http_headers(url)
-      location = headers["location"]
+      location = headers && headers["location"]
       location.nil? ? nil : location.first    #either an array containing the location or nil
     end
 
