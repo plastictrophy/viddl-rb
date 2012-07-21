@@ -10,8 +10,10 @@ module ViddlRb
       doc          = Nokogiri::XML(open(url))
       download_filename = doc.at("#main-content-inner img[class=waveform]").attributes["src"].value.to_s.match(/\.com\/(.+)\_/)[1]
       download_url = "http://media.soundcloud.com/stream/#{download_filename}"
-      file_name    = transliterate("#{doc.at('//h1/em').text.chomp}") + ".mp3"
 
+      #download_url = PluginBase.get_location_header(download_url) || download_url
+      
+      file_name    = transliterate("#{doc.at('//h1/em').text.chomp}") + ".mp3"
       [{:url => download_url, :name => file_name}]
     end
 
