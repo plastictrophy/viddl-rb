@@ -77,7 +77,6 @@ __Requirements:__
 * [Mechanize](http://mechanize.rubyforge.org/)
 * ffmpeg if you want to extract audio tracks from the videos
 
-
 __Contributors:__
 
 * [kl](https://github.com/kl): Windows support (who knew!), bug fixes, veoh plugin, metacafe plugin   
